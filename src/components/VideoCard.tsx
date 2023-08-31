@@ -1,21 +1,31 @@
-export default function VideoCard(props:any) {
-    return <div className="p-3">
-        <img src={props.image} className="rounded-xl"></img>
-        <div className="grid grid-cols-12 pt-2">
-            <div className="col-span-1">
-                <img className={"rounded-full w-20 h-20"} src={props.thumbImage}></img>
+import { useRouter } from "next/router"
+import type { Video } from "../videos"
+import { Line } from "./Line"
+
+export const VideoCard = ({video}: {video: Video}) => {
+    const router = useRouter();
+    return <div className="cursor-pointer" onClick={() => {
+        router.push("/video/1");
+    }}>
+        <div className="rounded-xl overflow-hidden">
+            <div>
+                <img src={video.thumbnail} />
+                <Line progress={10} />
             </div>
-            <div className="col-span-11">
-                <div>
-                    {props.title}
-                </div>
-                <div className="col-span-11 text-gray-400 text-base">
-                    {props.author}
-                </div>
-                <div className="col-span-11 text-gray-400 text-base">
-                    {props.views} | {props.timestamp}
-                </div>
+        </div>
+        <div className={"text-white-800 text-2xl font-medium"}>
+            {video.title}
+        </div>
+        <div className={"text-gray-400 text-xl font-normal		"}>
+            {video.description}
+        </div>
+        <div className="flex">
+            <div className={"text-gray-400 text-xl font-normal	pr-2	"}>
+                {video.viewCount} 
+            </div>
+            <div className={"text-gray-400 text-xl font-normal		"}>
+            • {video.timestamp}
             </div>
         </div>
     </div>
-} 
+}
